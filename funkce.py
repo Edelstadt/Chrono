@@ -188,7 +188,7 @@ def epakta_g(rok):
     """Tato funkce vypočítává gregoriánské epakty,
     parametr je rok / greg. epacts """
     if rok <= 1582:
-        return "Neni"
+        return None
     else:
         stoleti = int(rok / 100) + 1
         opravas = int(3 * stoleti / 4)  # sluneční oprava
@@ -255,6 +255,7 @@ def porovnani_pricteni(rok, mesic, den, den_pred):
 
         if d11 == den_pred:
             return d1
+
 def porovnani_odecteni_j(rok, mesic, den, den_pred):
     pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
     rok2 = VZOR_G_MAP[pismeno]
