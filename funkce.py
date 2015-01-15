@@ -115,37 +115,8 @@ NEDELNI_PISMENO_G_1699_MAP = {
 }
 
 
-#  slovník k fci nedelni_pismeo_j
-NEDELNI_PISMENO_J_MAP = {
-    1: "GF",
-    2: "E",
-    8: "E",
-    3: "D",
-    14: "D",
-    20: "D",
-    4: "C",
-    15: "C",
-    26: "C",
-    6: "G",
-    12: "G",
-    23: "G",
-    7: "F",
-    18: "F",
-    24: "F",
-    10: "B",
-    16: "B",
-    27: "B",
-    11: "A",
-    22: "A",
-    28: "A",
-    5: "BA",
-    9: "DC",
-    13: "FE",
-    17: "AG",
-    21: "CB",
-    25: "ED",
-    19: "E",
-}
+NEDELNI_PISMENO_J_MAP = [None,'GF', 'E', 'D', 'C', 'BA', 'G', 'F', 'E', 'DC', 'B', 'A', 'G', 'FE', 'D', 'C', 'B',
+ 'AG', 'F', 'E', 'D', 'CB', 'A', 'G', 'F', 'ED', 'C', 'B', 'A']
 
 
 def slunecni_kruh(rok):
@@ -188,7 +159,7 @@ def epakta_g(rok):
     """Tato funkce vypočítává gregoriánské epakty,
     parametr je rok / greg. epacts """
     if rok <= 1582:
-        return "Neni"
+        return None
     else:
         stoleti = int(rok / 100) + 1
         opravas = int(3 * stoleti / 4)  # sluneční oprava
@@ -204,11 +175,11 @@ def nedelni_pismeno_g(nedelni_p_j, rok):
     else:
         if rok <= 1699:
             return NEDELNI_PISMENO_G_1699_MAP[nedelni_p_j]
-        elif rok <= 1799:
+        if rok <= 1799:
             return NEDELNI_PISMENO_G_1799_MAP[nedelni_p_j]
-        elif rok <= 1899:
+        if rok <= 1899:
             return NEDELNI_PISMENO_G_1899_MAP[nedelni_p_j]
-        elif rok <= 2099:
+        if rok <= 2099:
             return NEDELNI_PISMENO_G_2099_MAP[nedelni_p_j]
 
 
@@ -238,6 +209,15 @@ def velikonoce_g(year):
     month = d + 3
     return "%d.%d.%d" % (day, month, year)
 
+
+def velikonoce(rok):
+    if rok < 1583:
+        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
+    else:
+        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
+    return datetime.date(dt[0], dt[1], dt[2])
+
+
 def porovnani_odecteni(rok, mesic, den, den_pred):
     for x in range(1, 8):
         d1 = datetime.date(rok, mesic, den) - datetime.timedelta(days=x)
@@ -255,6 +235,7 @@ def porovnani_pricteni(rok, mesic, den, den_pred):
 
         if d11 == den_pred:
             return d1
+
 def porovnani_odecteni_j(rok, mesic, den, den_pred):
     pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
     rok2 = VZOR_G_MAP[pismeno]
@@ -278,173 +259,78 @@ def porovnani_pricteni_j(rok, mesic, den, den_pred):
 
         if d11 == den_pred:
             return d1
+
 def devitnik(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*9))
+    return velikonoce(rok) - datetime.timedelta(days=(7*9))
 
 def nedele_po_devitniku(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*8))
+    return velikonoce(rok) - datetime.timedelta(days=(7*8))
 
 def masopustni_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*7))
+    return velikonoce(rok) - datetime.timedelta(days=(7*7))
 
 def popelecni_streda(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(46))
+    return velikonoce(rok) - datetime.timedelta(days=(46))
 
 def prazna_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*6))
+    return velikonoce(rok) - datetime.timedelta(days=(7*6))
 
 def druha_postni(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*5))
+    return velikonoce(rok) - datetime.timedelta(days=(7*5))
 
 def kychava_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*4))
+    return velikonoce(rok) - datetime.timedelta(days=(7*4))
 
 def druzebna_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*3))
+    return velikonoce(rok) - datetime.timedelta(days=(7*3))
 
 def smrtna_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*2))
+    return velikonoce(rok) - datetime.timedelta(days=(7*2))
 
 def kvetna_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(7*1))
+    return velikonoce(rok) - datetime.timedelta(days=(7*1))
 
 def zeleny_ctvrtek(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(3))
+    return velikonoce(rok) - datetime.timedelta(days=(3))
 
 def velky_patek(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(2))
+    return velikonoce(rok) - datetime.timedelta(days=(2))
 
 def bila_sobota(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=(1))
+    return velikonoce(rok) - datetime.timedelta(days=(1))
 
 def bila_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*1))
+    return velikonoce(rok) + datetime.timedelta(days=(7*1))
 
 def den_svatosti(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(12))
+    return velikonoce(rok) + datetime.timedelta(days=(12))
 
 def misericordia(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*2))
+    return velikonoce(rok) + datetime.timedelta(days=(7*2))
 
 def jubilate(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*3))
+    return velikonoce(rok) + datetime.timedelta(days=(7*3))
 
 def cantate(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*4))
+    return velikonoce(rok) + datetime.timedelta(days=(7*4))
 
 def krizova_nedele(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*5))
+    return velikonoce(rok) + datetime.timedelta(days=(7*5))
 
 def nanebevstoupeni(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(40))
+    return velikonoce(rok) + datetime.timedelta(days=(40))
 
 def exaudi(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*6))
+    return velikonoce(rok) + datetime.timedelta(days=(7*6))
 
 def letnice(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*7))
+    return velikonoce(rok) + datetime.timedelta(days=(7*7))
 
 def trojice(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(7*8))
+    return velikonoce(rok) + datetime.timedelta(days=(7*8))
 
 def boziho_tela(rok):
-    if rok < 1583:
-        dt = time.strptime(str(velikonoce_j(rok)), "%d.%m.%Y")
-    else:
-        dt = time.strptime(str(velikonoce_g(rok)), "%d.%m.%Y")
-    return datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=(60))
+    return velikonoce(rok) + datetime.timedelta(days=(60))
 
 def ctvrta_ned_ad(rok):
     for x in range(1, 8):
