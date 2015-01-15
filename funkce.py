@@ -118,7 +118,7 @@ NEDELNI_PISMENO_G_1699_MAP = {
 NEDELNI_PISMENO_J_MAP = [None,'GF', 'E', 'D', 'C', 'BA', 'G', 'F', 'E', 'DC', 'B', 'A', 'G', 'FE', 'D', 'C', 'B',
  'AG', 'F', 'E', 'D', 'CB', 'A', 'G', 'F', 'ED', 'C', 'B', 'A']
 
-
+#Fce slunecni_kruh vraci spravne hodnoty, neni nutne menit ci testovat
 def slunecni_kruh(rok):
     """Tato funkce vypočítává sluneční kruh, parametr je rok/
     This function calculates the solar circle, the parameter is the year"""
