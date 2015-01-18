@@ -1,0 +1,562 @@
+<root>
+    <svatky>
+        <svatek type="Mikuláš">
+             <datum>6. 12.</datum>
+        </svatek>
+        <svatek type="Štěpán">
+             <datum>2. 1.</datum>
+        </svatek>
+        <svatek type="Okt. Jana evangelisty">
+             <datum>3. 1.</datum>
+        </svatek>
+        <svatek type="Okt. Mláďátek">
+             <datum>4. 1.</datum>
+        </svatek>
+        <svatek type="Tří králů">
+             <datum>6. 1.</datum>
+        </svatek>
+        <svatek type="Erhart bisk.">
+             <datum>8. 1.</datum>
+        </svatek>
+        <svatek type="Julián muč.">
+             <datum>9. 1.</datum>
+        </svatek>
+        <svatek type="Pavla poust.">
+             <datum>10. 1.</datum>
+        </svatek>
+        <svatek type="Okt. Tří králů">
+             <datum>13. 1.</datum>
+        </svatek>
+        <svatek type="Šťastného kn.">
+             <datum>14. 1.</datum>
+        </svatek>
+        <svatek type="Maura opata">
+             <datum>15. 1.</datum>
+        </svatek>
+        <svatek type="Marcella pap.">
+             <datum>16. 1.</datum>
+        </svatek>
+        <svatek type="Anton. poust.">
+             <datum>17. 1.</datum>
+        </svatek>
+        <svatek type="Prišky panny">
+             <datum>18. 1.</datum>
+        </svatek>
+        <svatek type="Fab. a Šebest.">
+             <datum>20. 1.</datum>
+        </svatek>
+        <svatek type="Anežka p.">
+             <datum>21. 1.</datum>
+        </svatek>
+        <svatek type="Vincencia m.">
+             <datum>22. 1.</datum>
+        </svatek>
+        <svatek type="Zasnoubení p. M.">
+             <datum>23. 1.</datum>
+        </svatek>
+        <svatek type="Timothea ap.">
+             <datum>24. 1.</datum>
+        </svatek>
+        <svatek type="Obr. s. Pavla">
+             <datum>25. 1.</datum>
+        </svatek>
+        <svatek type="Sex. Polyk. b.">
+             <datum>26. 1.</datum>
+        </svatek>
+        <svatek type="Jana Zlatoústého">
+             <datum>27. 1.</datum>
+        </svatek>
+        <svatek type="Karla Vel.">
+             <datum>28. 1.</datum>
+        </svatek>
+        <svatek type="Adelgundy p.">
+             <datum>30. 1.</datum>
+        </svatek>
+        <svatek type="Brigitty p.">
+             <datum>1. 2.</datum>
+        </svatek>
+        <svatek type="Blažeje bisk.">
+             <datum>3. 2.</datum>
+        </svatek>
+        <svatek type="Háty p.">
+             <datum>5. 2.</datum>
+        </svatek>
+        <svatek type="Doroty p.">
+             <datum>6. 2.</datum>
+        </svatek>
+        <svatek type="Apoll. p.">
+             <datum>9. 2.</datum>
+        </svatek>
+        <svatek type="Školastiky p.">
+             <datum>10. 2.</datum>
+        </svatek>
+        <svatek type="Valent. m.">
+             <datum>14. 2.</datum>
+        </svatek>
+        <svatek type="Juliany p.">
+             <datum>16. 2.</datum>
+        </svatek>
+        <svatek type="Korony p.">
+             <datum>20. 2.</datum>
+        </svatek>
+        <svatek type="Stol. s. Petra">
+             <datum>22. 2.</datum>
+        </svatek>
+        <svatek type="Matěje ap.">
+             <datum>25. 2.</datum>
+        </svatek>
+        <svatek type="Valpurgy p.">
+             <datum>26. 2.</datum>
+        </svatek>
+        <svatek type="Kunhuty p.">
+             <datum>3. 3.</datum>
+        </svatek>
+        <svatek type="Tomáše z Aq.">
+             <datum>7. 3.</datum>
+        </svatek>
+        <svatek type="Řehoře pap.">
+             <datum>12. 3.</datum>
+        </svatek>
+        <svatek type="Longina m.">
+             <datum>15. 3.</datum>
+        </svatek>
+        <svatek type="Cyrlaka m.">
+             <datum>16. 3.</datum>
+        </svatek>
+        <svatek type="Kedruty p.">
+             <datum>17. 3.</datum>
+        </svatek>
+        <svatek type="Benedikta op.">
+             <datum>21. 3.</datum>
+        </svatek>
+        <svatek type="Haštala m.">
+             <datum>26. 3.</datum>
+        </svatek>
+        <svatek type="Ambrože b.">
+             <datum>4. 4.</datum>
+        </svatek>
+        <svatek type="Lva pap.">
+             <datum>11. 4.</datum>
+        </svatek>
+        <svatek type="Tib. a Valer. m.">
+             <datum>14. 4.</datum>
+        </svatek>
+        <svatek type="Heleny vd.">
+             <datum>15. 4.</datum>
+        </svatek>
+        <svatek type="Marka ebang.">
+             <datum>25. 4.</datum>
+        </svatek>
+        <svatek type="Vitališe m.">
+             <datum>28. 4.</datum>
+        </svatek>
+        <svatek type="Fil. a Jak.">
+             <datum>1. 5.</datum>
+        </svatek>
+        <svatek type="Sigmunda kr.">
+             <datum>2. 5.</datum>
+        </svatek>
+        <svatek type="Nal. s. Kříže">
+             <datum>3. 5.</datum>
+        </svatek>
+        <svatek type="Floriana m.">
+             <datum>4. 5.</datum>
+        </svatek>
+        <svatek type="Gotharda b.">
+             <datum>5. 5.</datum>
+        </svatek>
+        <svatek type="s. Jana v oleji">
+             <datum>6. 5.</datum>
+        </svatek>
+        <svatek type="Stanislava b.">
+             <datum>8. 5.</datum>
+        </svatek>
+        <svatek type="Gord. i Epim.">
+             <datum>10. 5.</datum>
+        </svatek>
+        <svatek type="Pankráce m.">
+             <datum>12. 5.</datum>
+        </svatek>
+        <svatek type="Servacia">
+             <datum>13. 5.</datum>
+        </svatek>
+        <svatek type="Žofie p.">
+             <datum>15. 5.</datum>
+        </svatek>
+        <svatek type="Potenc. p.">
+             <datum>19. 5.</datum>
+        </svatek>
+        <svatek type="Urbana pap.">
+             <datum>25. 5.</datum>
+        </svatek>
+        <svatek type="Petronelly">
+             <datum>31. 5.</datum>
+        </svatek>
+        <svatek type="Nikodema m.">
+             <datum>1. 6.</datum>
+        </svatek>
+        <svatek type="Marcell. a Petra">
+             <datum>2. 6.</datum>
+        </svatek>
+        <svatek type="Erasima b.">
+             <datum>3. 6.</datum>
+        </svatek>
+        <svatek type="Bonifacia b.">
+             <datum>5. 6.</datum>
+        </svatek>
+        <svatek type="Medarda b.">
+             <datum>8. 6.</datum>
+        </svatek>
+        <svatek type="Prima a Felic.">
+             <datum>9. 6.</datum>
+        </svatek>
+        <svatek type="Barnabáše ap.">
+             <datum>11. 6.</datum>
+        </svatek>
+        <svatek type="Víta m.">
+             <datum>15. 6.</datum>
+        </svatek>
+        <svatek type="Marka i Marc-">
+             <datum>18. 6.</datum>
+        </svatek>
+        <svatek type="Protas. i Gerv.">
+             <datum>19. 6.</datum>
+        </svatek>
+        <svatek type="Albana m.">
+             <datum>21. 6.</datum>
+        </svatek>
+        <svatek type="X tisíc rytířů">
+             <datum>22. 6.</datum>
+        </svatek>
+        <svatek type="Jana Křitit.">
+             <datum>24. 6.</datum>
+        </svatek>
+        <svatek type="Jana bur.">
+             <datum>26. 6.</datum>
+        </svatek>
+        <svatek type="VII usnulých">
+             <datum>27. 6.</datum>
+        </svatek>
+        <svatek type="Petra a Pavla ap.">
+             <datum>29. 6.</datum>
+        </svatek>
+        <svatek type="Památka s. Pavla">
+             <datum>30. 6.</datum>
+        </svatek>
+        <svatek type="Navšť. o. Mar.">
+             <datum>2. 7.</datum>
+        </svatek>
+        <svatek type="Prokopa op.">
+             <datum>4. 7.</datum>
+        </svatek>
+        <svatek type="Vilibalda b.">
+             <datum>7. 7.</datum>
+        </svatek>
+        <svatek type="Kyliana s tov.">
+             <datum>8. 7.</datum>
+        </svatek>
+        <svatek type="Sedmi bratří">
+             <datum>10. 7.</datum>
+        </svatek>
+        <svatek type="Markéty p.">
+             <datum>13. 7.</datum>
+        </svatek>
+        <svatek type="Rozeslání ap.">
+             <datum>15. 7.</datum>
+        </svatek>
+        <svatek type="Alexia vyzn.">
+             <datum>17. 7.</datum>
+        </svatek>
+        <svatek type="Arnolfa b.">
+             <datum>18. 7.</datum>
+        </svatek>
+        <svatek type="Praxedy p.">
+             <datum>21. 7.</datum>
+        </svatek>
+        <svatek type="Máří Magd.">
+             <datum>22. 7.</datum>
+        </svatek>
+        <svatek type="Apolin. m.">
+             <datum>23. 7.</datum>
+        </svatek>
+        <svatek type="Kristiny p.">
+             <datum>24. 7.</datum>
+        </svatek>
+        <svatek type="Jakuba ap.">
+             <datum>25. 7.</datum>
+        </svatek>
+        <svatek type="Anny vd.">
+             <datum>26. 7.</datum>
+        </svatek>
+        <svatek type="Pantaleona m.">
+             <datum>28. 7.</datum>
+        </svatek>
+        <svatek type="Marty p.">
+             <datum>29. 7.</datum>
+        </svatek>
+        <svatek type="Abdona m.">
+             <datum>30. 7.</datum>
+        </svatek>
+        <svatek type="Petra v okov.">
+             <datum>1. 8.</datum>
+        </svatek>
+        <svatek type="Štěpána pap.">
+             <datum>2. 8.</datum>
+        </svatek>
+        <svatek type="Nalez. s. Štěp.">
+             <datum>3. 8.</datum>
+        </svatek>
+        <svatek type="Matky b. sn.">
+             <datum>5. 8.</datum>
+        </svatek>
+        <svatek type="Prom. Krist. p.">
+             <datum>6. 8.</datum>
+        </svatek>
+        <svatek type="Afry m.">
+             <datum>7. 8.</datum>
+        </svatek>
+        <svatek type="Cyriaka s tov.">
+             <datum>8. 8.</datum>
+        </svatek>
+        <svatek type="Roman. m.">
+             <datum>9. 8.</datum>
+        </svatek>
+        <svatek type="Vavřince m.">
+             <datum>10. 8.</datum>
+        </svatek>
+        <svatek type="Tiburcia m.">
+             <datum>11. 8.</datum>
+        </svatek>
+        <svatek type="Klary p.">
+             <datum>12. 8.</datum>
+        </svatek>
+        <svatek type="Hippolita m.">
+             <datum>13. 8.</datum>
+        </svatek>
+        <svatek type="Na n. vz. p. M">
+             <datum>15. 8.</datum>
+        </svatek>
+        <svatek type="Agapita m.">
+             <datum>18. 8.</datum>
+        </svatek>
+        <svatek type="Štěpána kr.">
+             <datum>20. 8.</datum>
+        </svatek>
+        <svatek type="Tim a Symfor.">
+             <datum>22. 8.</datum>
+        </svatek>
+        <svatek type="Bartolom. ap.">
+             <datum>24. 8.</datum>
+        </svatek>
+        <svatek type="Rufa m.">
+             <datum>27. 8.</datum>
+        </svatek>
+        <svatek type="Augistana b.">
+             <datum>28. 8.</datum>
+        </svatek>
+        <svatek type="Stětí s. Jana">
+             <datum>29. 8.</datum>
+        </svatek>
+        <svatek type="Štastn. a Zbož.">
+             <datum>30. 8.</datum>
+        </svatek>
+        <svatek type="Jiljí op.">
+             <datum>1. 9.</datum>
+        </svatek>
+        <svatek type="Viktorina m.">
+             <datum>5. 9.</datum>
+        </svatek>
+        <svatek type="Nar. p. Mar">
+             <datum>8. 9.</datum>
+        </svatek>
+        <svatek type="Gorgonia m.">
+             <datum>9. 9.</datum>
+        </svatek>
+        <svatek type="Pos. k. Václ.">
+             <datum>10. 9.</datum>
+        </svatek>
+        <svatek type="Prota a Jacint.">
+             <datum>11. 9.</datum>
+        </svatek>
+        <svatek type="Povýš. s. Kř.">
+             <datum>14. 9.</datum>
+        </svatek>
+        <svatek type="Lidmily m.">
+             <datum>16. 9.</datum>
+        </svatek>
+        <svatek type="Lamperia b.">
+             <datum>17. 9.</datum>
+        </svatek>
+        <svatek type="Matouše ap.">
+             <datum>21. 9.</datum>
+        </svatek>
+        <svatek type="Mauricia">
+             <datum>22. 9.</datum>
+        </svatek>
+        <svatek type="Poč. s. Jana">
+             <datum>24. 9.</datum>
+        </svatek>
+        <svatek type="Kosmy a Dam.">
+             <datum>27. 9.</datum>
+        </svatek>
+        <svatek type="Váslava m.">
+             <datum>28. 9.</datum>
+        </svatek>
+        <svatek type="Michala arch.">
+             <datum>29. 9.</datum>
+        </svatek>
+        <svatek type="Jeronýma uč.">
+             <datum>30. 9.</datum>
+        </svatek>
+        <svatek type="Remigia vyzn.">
+             <datum>1. 10.</datum>
+        </svatek>
+        <svatek type="Leodegaria">
+             <datum>2. 10.</datum>
+        </svatek>
+        <svatek type="Františka vyzn.">
+             <datum>4. 10.</datum>
+        </svatek>
+        <svatek type="Marka pap.">
+             <datum>7. 10.</datum>
+        </svatek>
+        <svatek type="Diviše s tov.">
+             <datum>9. 10.</datum>
+        </svatek>
+        <svatek type="Kolmana">
+             <datum>13. 10.</datum>
+        </svatek>
+        <svatek type="Kalixta pap.">
+             <datum>14. 10.</datum>
+        </svatek>
+        <svatek type="Hedviky">
+             <datum>15. 10.</datum>
+        </svatek>
+        <svatek type="Havla op.">
+             <datum>16. 10.</datum>
+        </svatek>
+        <svatek type="Lukáše ev.">
+             <datum>18. 10.</datum>
+        </svatek>
+        <svatek type="XI tisíc děvic.">
+             <datum>21. 10.</datum>
+        </svatek>
+        <svatek type="Korduly p.">
+             <datum>22. 10.</datum>
+        </svatek>
+        <svatek type="Severina b.">
+             <datum>23. 10.</datum>
+        </svatek>
+        <svatek type="Kolumbana b.">
+             <datum>24. 10.</datum>
+        </svatek>
+        <svatek type="Krišpína m.">
+             <datum>25. 10.</datum>
+        </svatek>
+        <svatek type="šim. a Judy">
+             <datum>28. 10.</datum>
+        </svatek>
+        <svatek type="Quintina m.">
+             <datum>31. 10.</datum>
+        </svatek>
+        <svatek type="Všech svatých">
+             <datum>1. 11.</datum>
+        </svatek>
+        <svatek type="Dušiček">
+             <datum>2. 11.</datum>
+        </svatek>
+        <svatek type="Linharta vyz.">
+             <datum>6. 11.</datum>
+        </svatek>
+        <svatek type="Čtyr korun.">
+             <datum>8. 11.</datum>
+        </svatek>
+        <svatek type="Theodora m.">
+             <datum>9. 11.</datum>
+        </svatek>
+        <svatek type="Přen. s. Lidm.">
+             <datum>10. 11.</datum>
+        </svatek>
+        <svatek type="Martina b.">
+             <datum>11. 11.</datum>
+        </svatek>
+        <svatek type="Pěti bratří">
+             <datum>12. 11.</datum>
+        </svatek>
+        <svatek type="Brikcího b.">
+             <datum>13. 11.</datum>
+        </svatek>
+        <svatek type="Otmara op.">
+             <datum>16. 11.</datum>
+        </svatek>
+        <svatek type="Alžběta vd.">
+             <datum>19. 11.</datum>
+        </svatek>
+        <svatek type="Obět. p. Marie">
+             <datum>21. 11.</datum>
+        </svatek>
+        <svatek type="Cecílie p.">
+             <datum>22. 11.</datum>
+        </svatek>
+        <svatek type="Kliment. pap.">
+             <datum>23. 11.</datum>
+        </svatek>
+        <svatek type="Chrysog. m.">
+             <datum>24. 11.</datum>
+        </svatek>
+        <svatek type="Kateřiny p.">
+             <datum>25. 11.</datum>
+        </svatek>
+        <svatek type="Lina pap.">
+             <datum>26. 11.</datum>
+        </svatek>
+        <svatek type="Saturnina b.">
+             <datum>29. 11.</datum>
+        </svatek>
+        <svatek type="Ondřeje ap.">
+             <datum>30. 11.</datum>
+        </svatek>
+        <svatek type="Barbory p.">
+             <datum>4. 12.</datum>
+        </svatek>
+        <svatek type="Mikuláše b.">
+             <datum>6. 12.</datum>
+        </svatek>
+        <svatek type="Početí p. Marie">
+             <datum>8. 12.</datum>
+        </svatek>
+        <svatek type="Lucie p.">
+             <datum>13. 12.</datum>
+        </svatek>
+        <svatek type="Nikasia b.">
+             <datum>14. 12.</datum>
+        </svatek>
+        <svatek type="Moudrosti bož.">
+             <datum>17. 12.</datum>
+        </svatek>
+        <svatek type="Tomáše ap.">
+             <datum>21. 12.</datum>
+        </svatek>
+        <svatek type="Štědrý večer">
+             <datum>24. 12.</datum>
+        </svatek>
+        <svatek type="Narození Kr. p.">
+             <datum>25. 12.</datum>
+        </svatek>
+        <svatek type="Štěpána m.">
+             <datum>26. 12.</datum>
+        </svatek>
+        <svatek type="Jana ev.">
+             <datum>27. 12.</datum>
+        </svatek>
+        <svatek type="Mláďátek">
+             <datum>28. 12.</datum>
+        </svatek>
+        <svatek type="Tomáše b.">
+             <datum>29. 12.</datum>
+        </svatek>
+        <svatek type="Silvestra pap.">
+             <datum>31. 12.</datum>
+        </svatek>
+    </svatky>
+</root>
