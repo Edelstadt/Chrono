@@ -1,16 +1,16 @@
-Chronologické pomùcky
+ChronologickÃ© pomÅ¯cky
 =====================
 
-Cíle
+CÃ­le
 ----
 
-Cílem je vytvoøit portovatelnou aplikaci, která bude slouit jako pomùcka pro genealogy, archiváøe a jiné nadšence pro historii.
-Mìla by umìt pøepoèítávat historické datace, poèítat církevní svátky jako velikonoce atd. a to hlavnì a pøedevším pro starší data (pouitelnost alespoò pro roky 1500+
+CÃ­lem je vytvoÅ™it portovatelnou aplikaci, kterÃ¡ bude slouÅ¾it jako pomÅ¯cka pro genealogy, archivÃ¡Å™e a jinÃ© nadÅ¡ence pro historii.
+MÄ›la by umÄ›t pÅ™epoÄÃ­tÃ¡vat historickÃ© datace, poÄÃ­tat cÃ­rkevnÃ­ svÃ¡tky jako velikonoce atd. a to hlavnÄ› a pÅ™edevÅ¡Ã­m pro starÅ¡Ã­ data (pouÅ¾itelnost alespoÅˆ pro roky 1500+ - NENÃ NUTNÃ‰ POÄŒÃTAT S ROKY 1300 A MÃ‰NÄš)
 
-První pokus o pøevedení do praxe
+PrvnÃ­ pokus o pÅ™evedenÃ­ do praxe
 [Link](http://edelstadt.pythonanywhere.com/)
 
-Aplikace by mìla bıt nejen jako internetová aplikace, ale i jako aplikace pro win, linux a snad i pro android
+Aplikace by mÄ›la bÃ½t nejen jako internetovÃ¡ aplikace, ale i jako aplikace pro win, linux a snad i pro android
 
 Testy
 -----
