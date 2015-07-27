@@ -182,6 +182,7 @@ def velikonoce_j(rok):
 
 
 def velikonoce_g(year):
+    """Výpočet gregoriánské velikonoční neděle / greg.. Easter"""
     a = year % 19
     b = year >> 2
     c = b // 25 + 1
@@ -209,6 +210,11 @@ def velikonoce(rok):
 
 
 def porovnani_odecteni(rok, mesic, den, den_pred):
+    """Vyhledá určitý den v týdnu PŘED zadaným dnem 
+    (např. sobota PŘED 1. 1. 2000) v greg. kal.
+    Searches for a specific day of the week before the specified day
+     (eg. the Saturday before 1. 1. 2000) in Greg. cal.
+    """
     for x in range(1, 8):
         d1 = datetime.date(rok, mesic, den) - datetime.timedelta(days=x)
         d11 = d1.strftime('%w')
@@ -219,6 +225,11 @@ def porovnani_odecteni(rok, mesic, den, den_pred):
 
 
 def porovnani_pricteni(rok, mesic, den, den_pred):
+    """Vyhledá určitý den v týdnu PO zadaném dnu 
+    (např. sobota PO 1. 1. 2000) v greg. kal.
+    Searches for a specific day of the week after the specified day
+     (eg. the Saturday after 1. 1. 2000) in Greg. cal.
+    """
     for x in range(1, 8):
         d1 = datetime.date(rok, mesic, den) + datetime.timedelta(days=x)
         d11 = d1.strftime('%w')
@@ -229,6 +240,11 @@ def porovnani_pricteni(rok, mesic, den, den_pred):
 
 
 def porovnani_odecteni_j(rok, mesic, den, den_pred):
+    """Vyhledá určitý den v týdnu PŘED zadaným dnem 
+    (např. sobota PŘED 1. 1. 2000) v jul. kal.
+    Searches for a specific day of the week before the specified day
+     (eg. the Saturday before 1. 1. 2000) in Jul. cal.
+    """
     pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
     rok2 = VZOR_G_MAP[pismeno]
     for x in range(1, 8):
@@ -242,6 +258,11 @@ def porovnani_odecteni_j(rok, mesic, den, den_pred):
 
 
 def porovnani_pricteni_j(rok, mesic, den, den_pred):
+    """Vyhledá určitý den v týdnu PO zadaném dnu 
+    (např. sobota PO 1. 1. 2000) v jul. kal.
+    Searches for a specific day of the week after the specified day
+     (eg. the Saturday after 1. 1. 2000) in Jul. cal.
+    """
     pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
     rok2 = VZOR_G_MAP[pismeno]
     for x in range(1, 8):
@@ -255,6 +276,7 @@ def porovnani_pricteni_j(rok, mesic, den, den_pred):
 
 
 def devitnik(rok):
+    """Septuagesima"""
     if rok == 1300 or rok == 1400 or rok == 1500:
         mezi = velikonoce(rok) - datetime.timedelta(days=62)
     else:
@@ -264,6 +286,7 @@ def devitnik(rok):
 
 
 def nedele_po_devitniku(rok):
+    """Sexagesima"""
     if rok == 1300 or rok == 1400 or rok == 1500:
         mezi = velikonoce(rok) - datetime.timedelta(days=55)
     else:
@@ -273,6 +296,7 @@ def nedele_po_devitniku(rok):
 
 
 def masopustni_nedele(rok):
+    """Quinquagesina"""
     if rok == 1300 or rok == 1400 or rok == 1500:
         mezi = velikonoce(rok) - datetime.timedelta(days=48)
     else:
@@ -282,6 +306,7 @@ def masopustni_nedele(rok):
 
 
 def popelecni_streda(rok):
+    """Ash Wednesday"""
     if rok == 1300 or rok == 1400 or rok == 1500:
         mezi = velikonoce(rok) - datetime.timedelta(days=45)
     else:
@@ -291,6 +316,7 @@ def popelecni_streda(rok):
 
 
 def prazna_nedele(rok):
+    """Reminiscere"""
     if rok == 1300 or rok == 1400 or rok == 1500:
         mezi = velikonoce(rok) - datetime.timedelta(days=41)
     else:
@@ -360,60 +386,49 @@ def den_svatosti(rok):
 
 
 def misericordia(rok):
+    """misericordia"""
     mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 2))
     t = mezi.timetuple()
     return t
 
 
 def jubilate(rok):
+    """jubilate"""
     mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 3))
     t = mezi.timetuple()
     return t
-
-
-def cantate(rok):
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 4))
-    t = mezi.timetuple()
-    return t
-
-
-def krizova_nedele(rok):
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 5))
-    t = mezi.timetuple()
-    return t
-
-
-def nanebevstoupeni(rok):
-    mezi = velikonoce(rok) + datetime.timedelta(days=40)
-    t = mezi.timetuple()
-    return t
-
-
+    
+    
 def exaudi(rok):
+    """exaudi"""
     mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 6))
     t = mezi.timetuple()
     return t
 
 
 def letnice(rok):
+    """pentecostes"""
     mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 7))
     t = mezi.timetuple()
     return t
 
 
 def trojice(rok):
+    """Trinity Sunday"""
     mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 8))
     t = mezi.timetuple()
     return t
 
 
 def boziho_tela(rok):
+    """Solemnity of the Body and Blood of Christ"""
     mezi = velikonoce(rok) + datetime.timedelta(days=60)
     t = mezi.timetuple()
     return t
 
 
 def ctvrta_ned_ad(rok):
+    """4. advent Sunday"""
     for x in range(1, 8):
         if rok > 1582:
             d1 = datetime.date(rok, 12, 25) - datetime.timedelta(days=x)
@@ -433,6 +448,7 @@ def ctvrta_ned_ad(rok):
 
 
 def treti_ned_ad(rok):
+    """3. advent Sunday"""
     date_str = time.strftime("%Y-%m-%d", ctvrta_ned_ad(rok))
     dt = time.strptime(date_str, "%Y-%m-%d")
     mezi = datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=7)
@@ -441,6 +457,7 @@ def treti_ned_ad(rok):
 
 
 def druha_ned_ad(rok):
+    """2. advent Sunday"""
     date_str = time.strftime("%Y-%m-%d", ctvrta_ned_ad(rok))
     dt = time.strptime(date_str, "%Y-%m-%d")
     mezi = datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=14)
@@ -449,6 +466,7 @@ def druha_ned_ad(rok):
 
 
 def prvni_ned_ad(rok):
+    """1. advent Sunday"""
     date_str = time.strftime("%Y-%m-%d", ctvrta_ned_ad(rok))
     dt = time.strptime(date_str, "%Y-%m-%d")
     mezi = datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=21)
