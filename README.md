@@ -25,21 +25,21 @@ USAGE:
 import funkce
 
 year = 2016
-print(funkce.slunecni_kruh(year))
-print(funkce.nedelni_pismeno_j(funkce.slunecni_kruh(year)))
-print(funkce.konkurenty(year))
-print(funkce.zlate_cislo(year))
-print(funkce.epakty_j(funkce.zlate_cislo(year)))
-print(funkce.epakta_g(year))
-print(funkce.nedelni_pismeno_g(funkce.nedelni_pismeno_j(funkce.slunecni_kruh(year)), year))
+print(funkce.slunecni_kruh(year)) # (solar circle) 9
+print(funkce.nedelni_pismeno_j(funkce.slunecni_kruh(year))) # (Dominical letter jul.) DC 
+print(funkce.konkurenty(year)) # (concurrentes) 4
+print(funkce.zlate_cislo(year)) # (numerus aurus) 3
+print(funkce.epakty_j(funkce.zlate_cislo(year))) # (epact jul.) 22
+print(funkce.epakta_g(year)) # (epact greg.) 21
+print(funkce.nedelni_pismeno_g(funkce.nedelni_pismeno_j(funkce.slunecni_kruh(year)), year)) # (Dominical letter greg.) CB
 # next return timetuple
-print(funkce.velikonoce_j(year))  
-print(funkce.velikonoce_g(year))
-print(funkce.devitnik(year))
-print(funkce.nedele_po_devitniku(year))
-print(funkce.masopustni_nedele(year))
-print(funkce.popelecni_streda(year))
-print(funkce.prazna_nedele(year))
+print(funkce.velikonoce_j(year)) # Easter jul.
+print(funkce.velikonoce_g(year)) # Easter greg.
+print(funkce.devitnik(year)) # Septuagesima
+print(funkce.nedele_po_devitniku(year)) # Sexagesima
+print(funkce.masopustni_nedele(year)) # Quinquagesina
+print(funkce.popelecni_streda(year)) # Ash Wednesday/dies cinerum
+print(funkce.prazna_nedele(year)) # Reminiscere
 print(funkce.druha_postni(year))
 print(funkce.kychava_nedele(year))
 print(funkce.druzebna_nedele(year))
