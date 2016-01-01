@@ -3,12 +3,20 @@
 
 import datetime
 import time
+import operator
 
-"""Tento skript vypočítává chronologické pomůcky /
-This script calculates the historical chronological utilities"""
+__title__ = 'chrono-tools'
+__version__ = '0.0.2'
+__author__ = 'Marek Dlabacek'
+__license__ = 'BSD'
+__copyright__ = 'Copyright 2013 Marek Dlabacek'
 
+"""This script calculates the historical chronological
+utilities"""
+
+TRANS_TO_G_YEAR = 1583
 #  slovníky k funkci nedelni_pismeno_g, podle staletí
-VZOR_G_MAP = {
+PATTERN_G_MAP = {
     "A": 2006,
     "B": 2005,
     "C": 2010,
@@ -24,7 +32,7 @@ VZOR_G_MAP = {
     "CB": 2016,
     "ED": 2020
 }
-NEDELNI_PISMENO_G_2099_MAP = {
+DOMICAL_LETTER_G_2099_MAP = {
     "A": "G",
     "B": "A",
     "C": "B",
@@ -41,7 +49,7 @@ NEDELNI_PISMENO_G_2099_MAP = {
     "ED": "DC"
 }
 
-NEDELNI_PISMENO_G_1899_MAP = {
+DOMICAL_LETTER_G_1899_MAP = {
     "A": "F",
     "B": "G",
     "C": "A",
@@ -58,7 +66,7 @@ NEDELNI_PISMENO_G_1899_MAP = {
     "ED": "CB",
 }
 
-NEDELNI_PISMENO_G_1799_MAP = {
+DOMICAL_LETTER_G_1799_MAP = {
     "A": "E",
     "B": "F",
     "C": "G",
@@ -75,7 +83,7 @@ NEDELNI_PISMENO_G_1799_MAP = {
     "ED": "BA",
 }
 
-NEDELNI_PISMENO_G_1699_MAP = {
+DOMICAL_LETTER_G_1699_MAP = {
     "A": "D",
     "B": "E",
     "C": "F",
@@ -92,432 +100,350 @@ NEDELNI_PISMENO_G_1699_MAP = {
     "ED": "AG",
 }
 
-NEDELNI_PISMENO_J_MAP = [None, 'GF', 'E', 'D', 'C', 'BA', 'G', 'F', 'E', 'DC', 'B', 'A', 'G', 'FE', 'D', 'C', 'B',
-                         'AG', 'F', 'E', 'D', 'CB', 'A', 'G', 'F', 'ED', 'C', 'B', 'A']
+DOMINICAL_LETTER_J_MAP = [None, 'GF', 'E', 'D', 'C', 'BA', 'G', 'F', 'E', 'DC',
+                          'B', 'A', 'G', 'FE', 'D', 'C', 'B',
+                          'AG', 'F', 'E', 'D', 'CB', 'A', 'G', 'F', 'ED', 'C',
+                          'B', 'A']
 
 
-def slunecni_kruh(rok):
-    """Tato funkce vypočítává sluneční kruh, parametr je rok/
-    :param rok:
-    This function calculates the solar circle, the parameter is the year"""
-    return (rok + 9) % 28 or 28
-
-
-def nedelni_pismeno_j(slunecnikruh):
-    """Tato funkce vypočítává juliánské nedělní písmeno,
-    :param slunecnikruh:
-    parametr je sluneční kruh / Julian Dominical letter """
-    return NEDELNI_PISMENO_J_MAP[slunecnikruh]
-
-
-def konkurenty(rok):
-    """Tato funkce vypočítává konkurenty,
-    parametr je rok """
-    ctvrtina = (rok / 4)
-    ctvrtina = int(ctvrtina)
-    return (rok + ctvrtina + 4) % 7 or 7
-
-
-def zlate_cislo(rok):
-    """Tato funkce vypočítává zlaté číslo,
-    parametr je rok """
-    cislo = (rok + 1) % 19
-    if cislo == 0:
-        return 19
-    else:
-        return cislo
-
-
-def epakty_j(zlatecislo):
-    """Tato funkce vypočítává juliánské epakty,
-    parametr je zlaté číslo / jul. epacts"""
-    return ((zlatecislo - 1) * 11) % 30
-
-
-def epakta_g(rok):
-    """Tato funkce vypočítává gregoriánské epakty,
-    parametr je rok / greg. epacts """
-    if rok <= 1582:
-        return None
-    else:
-        stoleti = int(rok / 100) + 1
-        opravas = int(3 * stoleti / 4)  # sluneční oprava
-        opravam = int((8 * stoleti + 5) / 25)  # měsíční oprava
-        return (epakty_j(zlate_cislo(rok)) - opravas + opravam + 8) % 30
-
-
-def nedelni_pismeno_g(nedelni_p_j, rok):
-    """Tato funkce počítá gregoriánské nedělní písmeno /
-    greg. Dominical letter"""
-    if rok <= 1582:
-        return "Neni"
-    else:
-        if rok <= 1699:
-            return NEDELNI_PISMENO_G_1699_MAP[nedelni_p_j]
-        if rok <= 1799:
-            return NEDELNI_PISMENO_G_1799_MAP[nedelni_p_j]
-        if rok <= 1899:
-            return NEDELNI_PISMENO_G_1899_MAP[nedelni_p_j]
-        if rok <= 2099:
-            return NEDELNI_PISMENO_G_2099_MAP[nedelni_p_j]
-
-
-def velikonoce_j(rok):
-    """Výpočet juliánské velikonoční neděle / jul. Easter"""
-    pomocna_a = rok % 19
-    pomocna_b = rok % 4
-    pomocna_c = rok % 7
-    pomocna_d = (15 + (19 * pomocna_a)) % 30
-    pomocna_e = (6 + (2 * pomocna_b) + (4 * pomocna_c) + (6 * pomocna_d)) % 7
-    if (22 + pomocna_d + pomocna_e) > 31:
-        x = "%d-%d-%d" % (rok, 4, (pomocna_d + pomocna_e - 9))
-        mezi = datetime.datetime.strptime(x, "%Y-%m-%d")
-        t = mezi.timetuple()
-        return t
-    else:  # (22 + pomocna_d + pomocna_e) < 31:
-        x = "%d-%d-%d" % (rok, 3, (22 + pomocna_d + pomocna_e))
-        mezi = datetime.datetime.strptime(x, "%Y-%m-%d")
-        t = mezi.timetuple()
-        return t
-
-
-def velikonoce_g(year):
-    """Výpočet gregoriánské velikonoční neděle / greg.. Easter"""
-    a = year % 19
-    b = year >> 2
-    c = b // 25 + 1
-    d = (c * 3) >> 2
-    e = ((a * 19) - ((c * 8 + 5) // 25) + d + 15) % 30
-    e += (29578 - a - e * 32) >> 10
-    e -= ((year % 7) + b - d + e + 2) % 7
-    d = e >> 5
-    day = e - d * 31
-    month = d + 3
-    x = "%d-%d-%d" % (year, month, day)
-    mezi = datetime.datetime.strptime(x, "%Y-%m-%d")
-    t = mezi.timetuple()
-    return t
-
-
-def velikonoce(rok):
-    if rok < 1583:
-        date_str = time.strftime("%Y-%m-%d", velikonoce_j(rok))
-        dt = time.strptime(date_str, "%Y-%m-%d")
-    else:
-        date_str = time.strftime("%Y-%m-%d", velikonoce_g(rok))
-        dt = time.strptime(date_str, "%Y-%m-%d")
-    return datetime.date(dt[0], dt[1], dt[2])
-
-
-def porovnani_odecteni(rok, mesic, den, den_pred):
-    """Vyhledá určitý den v týdnu PŘED zadaným dnem 
-    (např. sobota PŘED 1. 1. 2000) v greg. kal.
-    Searches for a specific day of the week before the specified day
-     (eg. the Saturday before 1. 1. 2000) in Greg. cal.
+class EasterTool():
     """
-    for x in range(1, 8):
-        d1 = datetime.date(rok, mesic, den) - datetime.timedelta(days=x)
-        d11 = d1.strftime('%w')
-        d11 = int(d11)
-
-        if d11 == den_pred:
-            return d1
-
-
-def porovnani_pricteni(rok, mesic, den, den_pred):
-    """Vyhledá určitý den v týdnu PO zadaném dnu 
-    (např. sobota PO 1. 1. 2000) v greg. kal.
-    Searches for a specific day of the week after the specified day
-     (eg. the Saturday after 1. 1. 2000) in Greg. cal.
+A tool for determining the date of Easter and the calculation of movable feasts
     """
-    for x in range(1, 8):
-        d1 = datetime.date(rok, mesic, den) + datetime.timedelta(days=x)
-        d11 = d1.strftime('%w')
-        d11 = int(d11)
 
-        if d11 == den_pred:
-            return d1
+    def __init__(self, year):
+        self.__year = year
 
+    def solar_circle(self):
+        """
+        This function calculates the solar circle, the parameter is the year"""
+        return (self.__year + 9) % 28 or 28
 
-def porovnani_odecteni_j(rok, mesic, den, den_pred):
-    """Vyhledá určitý den v týdnu PŘED zadaným dnem 
-    (např. sobota PŘED 1. 1. 2000) v jul. kal.
-    Searches for a specific day of the week before the specified day
-     (eg. the Saturday before 1. 1. 2000) in Jul. cal.
-    """
-    pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
-    rok2 = VZOR_G_MAP[pismeno]
-    for x in range(1, 8):
-        d1 = datetime.date(rok2, mesic, den) - datetime.timedelta(days=x)
-        d11 = d1.strftime('%w')
-        d11 = int(d11)
-        d1 = d1.replace(year=rok)
+    def dominical_letter_j(self):
+        """
+        :param solarcircle / Julian Dominical letter """
+        return DOMINICAL_LETTER_J_MAP[self.solar_circle()]
 
-        if d11 == den_pred:
-            return d1
+    def concurrents(self):
+        """Tato funkce vypočítává concurrents,
+        parametr je year """
+        quarter = (self.__year / 4)
+        quarter = int(quarter)
+        return (self.__year + quarter + 4) % 7 or 7
 
-
-def porovnani_pricteni_j(rok, mesic, den, den_pred):
-    """Vyhledá určitý den v týdnu PO zadaném dnu 
-    (např. sobota PO 1. 1. 2000) v jul. kal.
-    Searches for a specific day of the week after the specified day
-     (eg. the Saturday after 1. 1. 2000) in Jul. cal.
-    """
-    pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
-    rok2 = VZOR_G_MAP[pismeno]
-    for x in range(1, 8):
-        d1 = datetime.date(rok2, mesic, den) + datetime.timedelta(days=x)
-        d11 = d1.strftime('%w')
-        d11 = int(d11)
-        d1 = d1.replace(year=rok)
-
-        if d11 == den_pred:
-            return d1
-
-
-def devitnik(rok):
-    """Septuagesima"""
-    if rok == 1300 or rok == 1400 or rok == 1500:
-        mezi = velikonoce(rok) - datetime.timedelta(days=62)
-    else:
-        mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 9))
-    t = mezi.timetuple()
-    return t
-
-
-def nedele_po_devitniku(rok):
-    """Sexagesima"""
-    if rok == 1300 or rok == 1400 or rok == 1500:
-        mezi = velikonoce(rok) - datetime.timedelta(days=55)
-    else:
-        mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 8))
-    t = mezi.timetuple()
-    return t
-
-
-def masopustni_nedele(rok):
-    """Quinquagesina"""
-    if rok == 1300 or rok == 1400 or rok == 1500:
-        mezi = velikonoce(rok) - datetime.timedelta(days=48)
-    else:
-        mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 7))
-    t = mezi.timetuple()
-    return t
-
-
-def popelecni_streda(rok):
-    """Ash Wednesday"""
-    if rok == 1300 or rok == 1400 or rok == 1500:
-        mezi = velikonoce(rok) - datetime.timedelta(days=45)
-    else:
-        mezi = velikonoce(rok) - datetime.timedelta(days=46)
-    t = mezi.timetuple()
-    return t
-
-
-def prazna_nedele(rok):
-    """Reminiscere"""
-    if rok == 1300 or rok == 1400 or rok == 1500:
-        mezi = velikonoce(rok) - datetime.timedelta(days=41)
-    else:
-        mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 6))
-    t = mezi.timetuple()
-    return t
-
-
-def druha_postni(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 5))
-    t = mezi.timetuple()
-    return t
-
-
-def kychava_nedele(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 4))
-    t = mezi.timetuple()
-    return t
-
-
-def druzebna_nedele(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 3))
-    t = mezi.timetuple()
-    return t
-
-
-def smrtna_nedele(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 2))
-    t = mezi.timetuple()
-    return t
-
-
-def kvetna_nedele(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=(7 * 1))
-    t = mezi.timetuple()
-    return t
-
-
-def zeleny_ctvrtek(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=3)
-    t = mezi.timetuple()
-    return t
-
-
-def velky_patek(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=2)
-    t = mezi.timetuple()
-    return t
-
-
-def bila_sobota(rok):
-    mezi = velikonoce(rok) - datetime.timedelta(days=1)
-    t = mezi.timetuple()
-    return t
-
-
-def bila_nedele(rok):
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 1))
-    t = mezi.timetuple()
-    return t
-
-
-def den_svatosti(rok):
-    mezi = velikonoce(rok) + datetime.timedelta(days=12)
-    t = mezi.timetuple()
-    return t
-
-
-def misericordia(rok):
-    """misericordia"""
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 2))
-    t = mezi.timetuple()
-    return t
-
-
-def jubilate(rok):
-    """jubilate"""
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 3))
-    t = mezi.timetuple()
-    return t
-    
-    
-def exaudi(rok):
-    """exaudi"""
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 6))
-    t = mezi.timetuple()
-    return t
-
-
-def letnice(rok):
-    """pentecostes"""
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 7))
-    t = mezi.timetuple()
-    return t
-
-
-def trojice(rok):
-    """Trinity Sunday"""
-    mezi = velikonoce(rok) + datetime.timedelta(days=(7 * 8))
-    t = mezi.timetuple()
-    return t
-
-
-def boziho_tela(rok):
-    """Solemnity of the Body and Blood of Christ"""
-    mezi = velikonoce(rok) + datetime.timedelta(days=60)
-    t = mezi.timetuple()
-    return t
-
-
-def ctvrta_ned_ad(rok):
-    """4. advent Sunday"""
-    for x in range(1, 8):
-        if rok > 1582:
-            d1 = datetime.date(rok, 12, 25) - datetime.timedelta(days=x)
-            d11 = int(d1.strftime('%w'))
-            if d11 == 0:
-                t = d1.timetuple()
-                return t
+    def golden_number(self):
+        """Tato funkce vypočítává zlaté číslo,
+        parametr je year """
+        number = (self.__year + 1) % 19
+        if number == 0:
+            return 19
         else:
-            pismeno = nedelni_pismeno_j(slunecni_kruh(rok))
-            rok2 = VZOR_G_MAP[pismeno]
-            d1 = datetime.date(rok2, 12, 25) - datetime.timedelta(days=x)
-            d11 = int(d1.strftime('%w'))
-            d1 = d1.replace(year=rok)
-            if d11 == 0:
-                t = d1.timetuple()
-                return t
+            return number
 
+    def epact_j(self):
+        """Tato funkce vypočítává juliánské epakty,
+        parametr je zlaté číslo / jul. epacts"""
+        return ((self.golden_number() - 1) * 11) % 30
 
-def treti_ned_ad(rok):
-    """3. advent Sunday"""
-    date_str = time.strftime("%Y-%m-%d", ctvrta_ned_ad(rok))
-    dt = time.strptime(date_str, "%Y-%m-%d")
-    mezi = datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=7)
-    t = mezi.timetuple()
-    return t
-
-
-def druha_ned_ad(rok):
-    """2. advent Sunday"""
-    date_str = time.strftime("%Y-%m-%d", ctvrta_ned_ad(rok))
-    dt = time.strptime(date_str, "%Y-%m-%d")
-    mezi = datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=14)
-    t = mezi.timetuple()
-    return t
-
-
-def prvni_ned_ad(rok):
-    """1. advent Sunday"""
-    date_str = time.strftime("%Y-%m-%d", ctvrta_ned_ad(rok))
-    dt = time.strptime(date_str, "%Y-%m-%d")
-    mezi = datetime.date(dt[0], dt[1], dt[2]) - datetime.timedelta(days=21)
-    t = mezi.timetuple()
-    return t
-
-
-def nedele_letni(rok):
-    nedele = []
-
-    date_str = time.strftime("%Y-%m-%d", trojice(rok))
-    dt = time.strptime(date_str, "%Y-%m-%d")
-    date_str2 = time.strftime("%Y-%m-%d", prvni_ned_ad(rok))
-    dt2 = time.strptime(str(date_str2), "%Y-%m-%d")
-    dt2 = datetime.date(dt2[0], dt2[1], dt2[2]) + datetime.timedelta(days=0)
-    for x in range(1, 40):
-        d1 = datetime.date(dt[0], dt[1], dt[2]) + datetime.timedelta(days=7 * x)
-
-        if d1 >= dt2:
-            return nedele
+    def epact_g(self):
+        """Tato funkce vypočítává gregoriánské epakty,
+        parametr je year / greg. epacts """
+        if self.__year <= TRANS_TO_G_YEAR:
+            return None
         else:
-            t = d1.timetuple()
-            nedele.append(t)
+            century = int(self.__year / 100) + 1
+            correctionsolar = int(3 * century / 4)  # sluneční oprava
+            correctionlunar = int((8 * century + 5) / 25)  # měsíční oprava
+            return (self.epact_j() -
+                    correctionsolar + correctionlunar + 8) % 30
 
-
-def masopust(rok):
-    # prázdný slovník
-    nedele = []
-    # zjištění první neděle po třech králích
-    if rok < 1583:
-        prvni = porovnani_pricteni_j(rok, 1, 6, 0)
-    else:
-        prvni = porovnani_pricteni(rok, 1, 6, 0)
-
-    t = prvni.timetuple()
-    # přidání první neděle do slovníku, index nedělí bude chronologicky
-    nedele.append(t)
-    # převod první neděle
-    prvni = prvni.isoformat()
-    dt_prvni = time.strptime(str(prvni), "%Y-%m-%d")
-    date_str = time.strftime("%Y-%m-%d", devitnik(rok))
-    # print(date_str)
-    dt_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-    # přidávání týdnů k první neděli
-    for x in range(1, 15):
-        d1 = datetime.datetime(dt_prvni[0], dt_prvni[1], dt_prvni[2]) + datetime.timedelta(
-            days=7 * x)
-        # pokud je výsledek shodný s poslední počítanou nedělí, tak ho zformátuj, přidej do slovníku a vrat slovník
-        if d1 >= dt_obj:
-            return nedele
-        # pokud není, tak poslední počítanou neděli jen přidej do slovníku a pokračuj
+    def dominical_letter_g(self):
+        """Tato funkce počítá gregoriánské nedělní písmeno /
+        greg. Dominical letter"""
+        if self.__year <= TRANS_TO_G_YEAR:
+            return "None"
         else:
-            t = d1.timetuple()
-            nedele.append(t)
+            if self.__year <= 1699:
+                return DOMICAL_LETTER_G_1699_MAP[self.dominical_letter_j()]
+            if self.__year <= 1799:
+                return DOMICAL_LETTER_G_1799_MAP[self.dominical_letter_j()]
+            if self.__year <= 1899:
+                return DOMICAL_LETTER_G_1899_MAP[self.dominical_letter_j()]
+            if self.__year <= 2099:
+                return DOMICAL_LETTER_G_2099_MAP[self.dominical_letter_j()]
+
+    def easter_j(self):
+        """Výpočet juliánské velikonoční neděle / jul. Easter"""
+        help_a = self.__year % 19
+        help_b = self.__year % 4
+        help_c = self.__year % 7
+        help_d = (15 + (19 * help_a)) % 30
+        help_e = (6 + (2 * help_b) + (4 * help_c) + (6 * help_d)) % 7
+        if (22 + help_d + help_e) > 31:
+            date_fomat = "%d-%d-%d" % (self.__year, 4, (help_d + help_e - 9))
+            to_tuple = datetime.datetime.strptime(date_fomat, "%Y-%m-%d")
+            result_date = to_tuple.timetuple()
+            return result_date
+        else:  # (22 + help_d + help_e) < 31:
+            date_fomat = "%d-%d-%d" % (self.__year, 3, (22 + help_d + help_e))
+            to_tuple = datetime.datetime.strptime(date_fomat, "%Y-%m-%d")
+            result_date = to_tuple.timetuple()
+            return result_date
+
+    def easter_g(self):
+        """Výpočet gregoriánské velikonoční neděle / greg.. Easter"""
+        help_a = self.__year % 19
+        help_b = self.__year >> 2
+        help_c = help_b // 25 + 1
+        help_d = (help_c * 3) >> 2
+        help_e = ((help_a * 19) - ((help_c * 8 + 5) // 25) + help_d + 15) % 30
+        help_e += (29578 - help_a - help_e * 32) >> 10
+        help_e -= ((self.__year % 7) + help_b - help_d + help_e + 2) % 7
+        help_d = help_e >> 5
+        day = help_e - help_d * 31
+        month = help_d + 3
+        result = "%d-%d-%d" % (self.__year, month, day)
+        to_tuple = datetime.datetime.strptime(result, "%Y-%m-%d")
+        date_format = to_tuple.timetuple()
+        return date_format
+
+    def easter(self):
+        """Helper function for movable holidays
+        Selects easter jul. or greg., depend on year change type cal."""
+        if self.__year < TRANS_TO_G_YEAR:
+            date_str = time.strftime("%Y-%m-%d", self.easter_j())
+            date = time.strptime(date_str, "%Y-%m-%d")
+        else:
+            date_str = time.strftime("%Y-%m-%d", self.easter_g())
+            date = time.strptime(date_str, "%Y-%m-%d")
+        return datetime.date(date[0], date[1], date[2])
+
+    def comparator(self, month, day, day_bef_aft, oper, *jg):
+        """Helper function, Search the closest day of week by entering,
+         oper 1 = -; 0 = +
+        jg[0] = 0 = julian, jg[0] = 1 = greg."""
+        year_org = self.__year
+        if jg:
+            if year_org < TRANS_TO_G_YEAR or jg[0] == 'J':
+                letter = self.dominical_letter_j()
+                year = PATTERN_G_MAP[letter]
+
+        else:
+            if year_org < TRANS_TO_G_YEAR:
+                letter = self.dominical_letter_j()
+                year = PATTERN_G_MAP[letter]
+
+        if oper == 1:
+            opr = operator.sub
+        else:
+            opr = operator.add
+
+        for day_count in range(1, 8):
+            date_1 = opr(datetime.date(year, month, day),
+                         datetime.timedelta(days=day_count))
+            date_2 = date_1.strftime('%w')
+            date_2 = int(date_2)
+            date_1 = date_1.replace(year=year_org)
+
+            if date_2 == day_bef_aft:
+                return date_1
+
+    @staticmethod
+    def moveable_feast(date, quantity_days, oper):
+        """oper: 1 = +"""
+        if oper == 1:
+            result = date + datetime.timedelta(days=quantity_days)
+        else:
+            result = date - datetime.timedelta(days=quantity_days)
+        return result.timetuple()
+
+    def septuagesima(self):
+        """Septuagesima/ devitnik"""
+        if self.__year == 1300 or self.__year == 1400 or self.__year == 1500:
+            return self.moveable_feast(self.easter(), 62, 0)
+
+        else:
+            return self.moveable_feast(self.easter(), (7 * 9), 0)
+
+    def sexagesima(self):
+        """Sexagesima/nedele po devitniku"""
+        if self.__year == 1300 or self.__year == 1400 or self.__year == 1500:
+            return self.moveable_feast(self.easter(), 55, 0)
+        else:
+            return self.moveable_feast(self.easter(), (7 * 8), 0)
+
+    def quinquagesina(self):
+        """Quinquagesina/masopustni nedele"""
+        if self.__year == 1300 or self.__year == 1400 or self.__year == 1500:
+            return self.moveable_feast(self.easter(), 48, 0)
+        else:
+            return self.moveable_feast(self.easter(), (7 * 7), 0)
+
+    def dies_cinerum(self):
+        """Ash Wednesday/popeleční středa"""
+        if self.__year == 1300 or self.__year == 1400 or self.__year == 1500:
+            return self.moveable_feast(self.easter(), 45, 0)
+        else:
+            return self.moveable_feast(self.easter(), 46, 0)
+
+    def reminiscere(self):
+        """Reminiscere/prazna nedele"""
+        if self.__year == 1300 or self.__year == 1400 or self.__year == 1500:
+            return self.moveable_feast(self.easter(), 41, 0)
+        else:
+            return self.moveable_feast(self.easter(), (7 * 6), 0)
+
+    def second_sun_lent(self):
+        """"Druhá postní neděle"""
+        return self.moveable_feast(self.easter(), (7 * 5), 0)
+
+    def kychava_nedele(self):
+        return self.moveable_feast(self.easter(), (7 * 4), 0)
+
+    def druzebna_nedele(self):
+        return self.moveable_feast(self.easter(), (7 * 3), 0)
+
+    def smrtna_nedele(self):
+        return self.moveable_feast(self.easter(), (7 * 2), 0)
+
+    def kvetna_nedele(self):
+        return self.moveable_feast(self.easter(), (7 * 1), 0)
+
+    def zeleny_ctvrtek(self):
+        return self.moveable_feast(self.easter(), 3, 0)
+
+    def velky_patek(self):
+        return self.moveable_feast(self.easter(), 2, 0)
+
+    def bila_sobota(self):
+        return self.moveable_feast(self.easter(), 1, 0)
+
+    def bila_nedele(self):
+        return self.moveable_feast(self.easter(), (7 * 1), 1)
+
+    def den_svatosti(self):
+        return self.moveable_feast(self.easter(), 12, 1)
+
+    def misericordia(self):
+        """misericordia"""
+        return self.moveable_feast(self.easter(), (7 * 2), 1)
+
+    def jubilate(self):
+        """jubilate"""
+        return self.moveable_feast(self.easter(), (7 * 3), 1)
+
+    def exaudi(self):
+        """exaudi"""
+        return self.moveable_feast(self.easter(), (7 * 6), 1)
+
+    def letnice(self):
+        """pentecostes"""
+        return self.moveable_feast(self.easter(), (7 * 7), 1)
+
+    def trojice(self):
+        """Trinity Sunday"""
+        return self.moveable_feast(self.easter(), (7 * 8), 1)
+
+    def boziho_tela(self):
+        """Solemnity of the Body and Blood of Christ"""
+        return self.moveable_feast(self.easter(), 60, 1)
+
+    def ctvrta_ned_ad(self):
+        """4. advent Sunday"""
+        for day_count in range(1, 8):
+            if self.__year > TRANS_TO_G_YEAR:
+                date_1 = datetime.date(self.__year, 12, 25) \
+                         - datetime.timedelta(days=day_count)
+                date_2 = int(date_1.strftime('%w'))
+                if date_2 == 0:
+                    result = date_1.timetuple()
+                    return result
+            else:
+                pismeno = self.dominical_letter_j()
+                year2 = PATTERN_G_MAP[pismeno]
+                date_1 = datetime.date(year2, 12, 25) \
+                    - datetime.timedelta(days=day_count)
+                date_2 = int(date_1.strftime('%w'))
+                date_1 = date_1.replace(year=self.__year)
+                if date_2 == 0:
+                    result = date_1.timetuple()
+                    return result
+
+    def treti_ned_ad(self):
+        """3. advent Sunday"""
+        date_str = time.strftime("%Y-%m-%d", self.ctvrta_ned_ad())
+        date = time.strptime(date_str, "%Y-%m-%d")
+        to_tuple = datetime.date(date[0], date[1], date[2]) \
+                   - datetime.timedelta(days=7)
+        result = to_tuple.timetuple()
+        return result
+
+    def druha_ned_ad(self):
+        """2. advent Sunday"""
+        date_str = time.strftime("%Y-%m-%d", self.ctvrta_ned_ad())
+        date = time.strptime(date_str, "%Y-%m-%d")
+        to_tuple = datetime.date(date[0], date[1], date[2]) \
+                   - datetime.timedelta(days=14)
+        result = to_tuple.timetuple()
+        return result
+
+    def prvni_ned_ad(self):
+        """1. advenresult Sunday"""
+        date_str = time.strftime("%Y-%m-%d", self.ctvrta_ned_ad())
+        date = time.strptime(date_str, "%Y-%m-%d")
+        to_tuple = datetime.date(date[0], date[1], date[2]) \
+                   - datetime.timedelta(days=21)
+        result = to_tuple.timetuple()
+        return result
+
+    def nedele_letni(self):
+        nedele = []
+        date_str = time.strftime("%Y-%m-%d", self.trojice())
+        date = time.strptime(date_str, "%Y-%m-%d")
+        date_str2 = time.strftime("%Y-%m-%d", self.prvni_ned_ad())
+        date2 = time.strptime(str(date_str2), "%Y-%m-%d")
+        date2 = datetime.date(date2[0], date2[1], date2[2]) \
+                + datetime.timedelta(days=0)
+        for day_count in range(1, 40):
+            date_1 = datetime.date(date[0], date[1], date[2]) \
+                     + datetime.timedelta(days=7 * day_count)
+
+            if date_1 >= date2:
+                return nedele
+            else:
+                result = date_1.timetuple()
+                nedele.append(result)
+
+    def masopust(self):
+        # prázdný slovník
+        sunday = []
+        # zjištění první neděle po třech králích
+
+        first_sunday = self.comparator(1, 6, 0, 0)
+
+        result = first_sunday.timetuple()
+        # přidání první neděle do slovníku, index nedělí bude chronologicky
+        sunday.append(result)
+        # převod první neděle
+        first_sunday = first_sunday.isoformat()
+        date_first_sunday = time.strptime(str(first_sunday), "%Y-%m-%d")
+        date_str = time.strftime("%Y-%m-%d", self.septuagesima())
+        # print(date_str)
+        date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        # přidávání týdnů k první neděli
+        for day_count in range(1, 15):
+            date1 = datetime.datetime(date_first_sunday[0],
+                                      date_first_sunday[1],
+                                      date_first_sunday[2])
+            date_1 = self.moveable_feast(date1, (7 * day_count), 1)
+            # pokud je výsledek shodný s poslední počítanou nedělí,
+            # tak ho zformátuj, přidej do slovníku a vrat slovník
+
+            date_1 = datetime.datetime.fromtimestamp(time.mktime(date_1))
+            if date_1 >= date_obj:
+                return sunday
+            # pokud není, tak poslední počítanou neděli
+            # jen přidej do slovníku a pokračuj
+            else:
+                result = date_1.timetuple()
+                sunday.append(result)
