@@ -18,52 +18,6 @@ Option 2 - funkce.py to create cross-platform GUI. Probably easier solution, but
 
 For both options must tweak funkce.py (for Option 1 as a tool for generating data for Option 2 for the actual calculations)
 
-USAGE:
-=====
-
-```python
-import funkce
-
-year = 2016
-print(funkce.slunecni_kruh(year)) # (solar circle) 9
-print(funkce.nedelni_pismeno_j(funkce.slunecni_kruh(year))) # (Dominical letter jul.) DC 
-print(funkce.konkurenty(year)) # (concurrentes) 4
-print(funkce.zlate_cislo(year)) # (numerus aurus) 3
-print(funkce.epakty_j(funkce.zlate_cislo(year))) # (epact jul.) 22
-print(funkce.epakta_g(year)) # (epact greg.) 21
-print(funkce.nedelni_pismeno_g(funkce.nedelni_pismeno_j(funkce.slunecni_kruh(year)), year)) # (Dominical letter greg.) CB
-# next return timetuple
-print(funkce.velikonoce_j(year)) # Easter jul.
-print(funkce.velikonoce_g(year)) # Easter greg.
-print(funkce.devitnik(year)) # Septuagesima
-print(funkce.nedele_po_devitniku(year)) # Sexagesima
-print(funkce.masopustni_nedele(year)) # Quinquagesina
-print(funkce.popelecni_streda(year)) # Ash Wednesday/dies cinerum
-print(funkce.prazna_nedele(year)) # Reminiscere
-print(funkce.druha_postni(year))
-print(funkce.kychava_nedele(year))
-print(funkce.druzebna_nedele(year))
-print(funkce.smrtna_nedele(year))
-print(funkce.kvetna_nedele(year))
-print(funkce.zeleny_ctvrtek(year))
-print(funkce.velky_patek(year))
-print(funkce.bila_sobota(year))
-print(funkce.bila_nedele(year))
-print(funkce.den_svatosti(year))
-print(funkce.misericordia(year))
-print(funkce.jubilate(year))
-print(funkce.exaudi(year))
-print(funkce.letnice(year))
-print(funkce.trojice(year))
-print(funkce.boziho_tela(year))
-print(funkce.ctvrta_ned_ad(year))
-print(funkce.treti_ned_ad(year))
-print(funkce.druha_ned_ad(year))
-print(funkce.prvni_ned_ad(year))
-# return list timetuple
-print(funkce.masopust(year))
-print(funkce.nedele_letni(year))
-```
 Chronologické pomůcky
 =====================
 
