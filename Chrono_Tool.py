@@ -125,15 +125,15 @@ A tool for determining the date of Easter and the calculation of movable feasts
         return DOMINICAL_LETTER_J_MAP[self.solar_circle()]
 
     def concurrents(self):
-        """Tato funkce vypočítává concurrents,
-        parametr je year """
+        """concurrents,
+        param: year """
         quarter = (self.__year / 4)
         quarter = int(quarter)
         return (self.__year + quarter + 4) % 7 or 7
 
     def golden_number(self):
-        """Tato funkce vypočítává zlaté číslo,
-        parametr je year """
+        """Golden number,
+        param: year """
         number = (self.__year + 1) % 19
         if number == 0:
             return 19
@@ -141,25 +141,25 @@ A tool for determining the date of Easter and the calculation of movable feasts
             return number
 
     def epact_j(self):
-        """Tato funkce vypočítává juliánské epakty,
-        parametr je zlaté číslo / jul. epacts"""
+        """Jul. epacts,
+        param: golden number"""
         return ((self.golden_number() - 1) * 11) % 30
 
     def epact_g(self):
-        """Tato funkce vypočítává gregoriánské epakty,
-        parametr je year / greg. epacts """
+        """Greg. epacts
+        param: year"""
         if self.__year <= TRANS_TO_G_YEAR:
             return None
         else:
             century = int(self.__year / 100) + 1
-            correctionsolar = int(3 * century / 4)  # sluneční oprava
-            correctionlunar = int((8 * century + 5) / 25)  # měsíční oprava
+            correctionsolar = int(3 * century / 4)  # solar correction
+            correctionlunar = int((8 * century + 5) / 25)  # moon correction
             return (self.epact_j() -
                     correctionsolar + correctionlunar + 8) % 30
 
     def dominical_letter_g(self):
-        """Tato funkce počítá gregoriánské nedělní písmeno /
-        greg. Dominical letter"""
+        """greg. Dominical letter
+        param: year"""
         if self.__year <= TRANS_TO_G_YEAR:
             return "None"
         else:
@@ -173,7 +173,8 @@ A tool for determining the date of Easter and the calculation of movable feasts
                 return DOMICAL_LETTER_G_2099_MAP[self.dominical_letter_j()]
 
     def easter_j(self):
-        """Výpočet juliánské velikonoční neděle / jul. Easter"""
+        """jul. Easter
+        param: year"""
         help_a = self.__year % 19
         help_b = self.__year % 4
         help_c = self.__year % 7
@@ -184,14 +185,15 @@ A tool for determining the date of Easter and the calculation of movable feasts
             to_tuple = datetime.datetime.strptime(date_fomat, "%Y-%m-%d")
             result_date = to_tuple.timetuple()
             return result_date
-        else:  # (22 + help_d + help_e) < 31:
+        else:
             date_fomat = "%d-%d-%d" % (self.__year, 3, (22 + help_d + help_e))
             to_tuple = datetime.datetime.strptime(date_fomat, "%Y-%m-%d")
             result_date = to_tuple.timetuple()
             return result_date
 
     def easter_g(self):
-        """Výpočet gregoriánské velikonoční neděle / greg.. Easter"""
+        """greg.. Easter
+        param: year"""
         help_a = self.__year % 19
         help_b = self.__year >> 2
         help_c = help_b // 25 + 1
