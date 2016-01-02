@@ -15,7 +15,7 @@ __copyright__ = 'Copyright 2013 Marek Dlabacek'
 utilities"""
 
 TRANS_TO_G_YEAR = 1583
-#  slovníky k funkci nedelni_pismeno_g, podle staletí
+#  dictionaries to function Dominical Letter g, by centuries
 PATTERN_G_MAP = {
     "A": 2006,
     "B": 2005,
