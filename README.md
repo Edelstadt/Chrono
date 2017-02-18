@@ -1,6 +1,5 @@
 
-[![Build Status](https://travis-ci.org/Edelstadt/List-of-saints-template.svg?branch=master)](https://travis-ci.org/Edelstadt/List-of-saints-template)
-Chronological tools
+[![Build Status](https://travis-ci.org/Edelstadt/Chrono.svg?branch=master)](https://travis-ci.org/Edelstadt/Chrono)Chronological tools
 =====================
 
 Goals
