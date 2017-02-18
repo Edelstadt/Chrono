@@ -1,33 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import unittest
 import time
+import unittest
 
-import Chrono_Tool
+from Chrono_Tool import EasterTool
 
 # verification results by - Historicka chronologie, Marie Blahova, Libri, 2001
 
-test_year_341 = funkce.EasterTool(341)
-test_year_1126 = funkce.EasterTool(1126)
-test_year_1583 = funkce.EasterTool(1583)
-test_year_2015 = funkce.EasterTool(2015)
-test_year_1573 = funkce.EasterTool(1573)
-test_year_1410 = funkce.EasterTool(1410)
-test_year_1692 = funkce.EasterTool(1692)
-test_year_1666 = funkce.EasterTool(1666)
-test_year_1791 = funkce.EasterTool(1791)
-test_year_1272 = funkce.EasterTool(1272)
-test_year_1522 = funkce.EasterTool(1522)
-test_year_1764 = funkce.EasterTool(1764)
-test_year_1300 = funkce.EasterTool(1300)
-test_year_1443 = funkce.EasterTool(1443)
-test_year_1737 = funkce.EasterTool(1737)
-test_year_1598 = funkce.EasterTool(1598)
-test_year_1690 = funkce.EasterTool(1690)
-test_year_1957 = funkce.EasterTool(1957)
-test_year_1348 = funkce.EasterTool(1348)
-test_year_1511 = funkce.EasterTool(1511)
-test_year_1492 = funkce.EasterTool(1492)
+test_year_341 = EasterTool(341)
+test_year_1126 = EasterTool(1126)
+test_year_1583 = EasterTool(1583)
+test_year_2015 = EasterTool(2015)
+test_year_1573 = EasterTool(1573)
+test_year_1410 = EasterTool(1410)
+test_year_1692 = EasterTool(1692)
+test_year_1666 = EasterTool(1666)
+test_year_1791 = EasterTool(1791)
+test_year_1272 = EasterTool(1272)
+test_year_1522 = EasterTool(1522)
+test_year_1764 = EasterTool(1764)
+test_year_1300 = EasterTool(1300)
+test_year_1443 = EasterTool(1443)
+test_year_1737 = EasterTool(1737)
+test_year_1598 = EasterTool(1598)
+test_year_1690 = EasterTool(1690)
+test_year_1957 = EasterTool(1957)
+test_year_1348 = EasterTool(1348)
+test_year_1511 = EasterTool(1511)
+test_year_1492 = EasterTool(1492)
 
 
 class ChronoTest(unittest.TestCase):

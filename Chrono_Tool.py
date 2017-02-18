@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import time
 import operator
+import time
+from typing import Union, Optional, Any
 
 __title__ = 'chrono-tools'
 __version__ = '0.0.2'
@@ -106,7 +107,7 @@ DOMINICAL_LETTER_J_MAP = [None, 'GF', 'E', 'D', 'C', 'BA', 'G', 'F', 'E', 'DC',
                           'B', 'A']
 
 
-class EasterTool():
+class EasterTool:
     """
 A tool for determining the date of Easter and the calculation of movable feasts
     """
@@ -114,24 +115,24 @@ A tool for determining the date of Easter and the calculation of movable feasts
     def __init__(self, year):
         self.__year = year
 
-    def solar_circle(self):
+    def solar_circle(self) -> int:
         """
         This function calculates the solar circle, the parameter is the year"""
         return (self.__year + 9) % 28 or 28
 
-    def dominical_letter_j(self):
+    def dominical_letter_j(self) -> str:
         """
-        :param solarcircle / Julian Dominical letter """
+        :param self / Julian Dominical letter """
         return DOMINICAL_LETTER_J_MAP[self.solar_circle()]
 
-    def concurrents(self):
+    def concurrents(self) -> int:
         """concurrents,
         param: year """
         quarter = (self.__year / 4)
         quarter = int(quarter)
         return (self.__year + quarter + 4) % 7 or 7
 
-    def golden_number(self):
+    def golden_number(self) -> int:
         """Golden number,
         param: year """
         number = (self.__year + 1) % 19
@@ -140,12 +141,12 @@ A tool for determining the date of Easter and the calculation of movable feasts
         else:
             return number
 
-    def epact_j(self):
+    def epact_j(self) -> int:
         """Jul. epacts,
         param: golden number"""
         return ((self.golden_number() - 1) * 11) % 30
 
-    def epact_g(self):
+    def epact_g(self) -> Optional[int]:
         """Greg. epacts
         param: year"""
         if self.__year <= TRANS_TO_G_YEAR:
@@ -157,11 +158,11 @@ A tool for determining the date of Easter and the calculation of movable feasts
             return (self.epact_j() -
                     correctionsolar + correctionlunar + 8) % 30
 
-    def dominical_letter_g(self):
+    def dominical_letter_g(self) -> Union[Optional[str], Any]:
         """greg. Dominical letter
         param: year"""
         if self.__year <= TRANS_TO_G_YEAR:
-            return "None"
+            return None
         else:
             if self.__year <= 1699:
                 return DOMICAL_LETTER_G_1699_MAP[self.dominical_letter_j()]
@@ -172,7 +173,7 @@ A tool for determining the date of Easter and the calculation of movable feasts
             if self.__year <= 2099:
                 return DOMICAL_LETTER_G_2099_MAP[self.dominical_letter_j()]
 
-    def easter_j(self):
+    def easter_j(self) -> time.struct_time:
         """jul. Easter
         param: year"""
         help_a = self.__year % 19
@@ -191,7 +192,7 @@ A tool for determining the date of Easter and the calculation of movable feasts
             result_date = to_tuple.timetuple()
             return result_date
 
-    def easter_g(self):
+    def easter_g(self) -> time.struct_time:
         """greg.. Easter
         param: year"""
         help_a = self.__year % 19
@@ -209,7 +210,7 @@ A tool for determining the date of Easter and the calculation of movable feasts
         date_format = to_tuple.timetuple()
         return date_format
 
-    def easter(self):
+    def easter(self) -> int:
         """Helper function for movable holidays
         Selects easter jul. or greg., depend on year change type cal."""
         if self.__year < TRANS_TO_G_YEAR:
@@ -218,13 +219,15 @@ A tool for determining the date of Easter and the calculation of movable feasts
         else:
             date_str = time.strftime("%Y-%m-%d", self.easter_g())
             date = time.strptime(date_str, "%Y-%m-%d")
-        return datetime.date(date[0], date[1], date[2])
+        result = datetime.date(date[0], date[1], date[2])
+        return result
 
     def comparator(self, month, day, day_bef_aft, oper, *jg):
         """Helper function, Search the closest day of week by entering,
          oper 1 = -; 0 = +
         jg[0] = 0 = julian, jg[0] = 1 = greg."""
         year_org = self.__year
+        year = 0
         if jg:
             if year_org < TRANS_TO_G_YEAR or jg[0] == 'J':
                 letter = self.dominical_letter_j()
@@ -354,8 +357,7 @@ A tool for determining the date of Easter and the calculation of movable feasts
         """4. advent Sunday"""
         for day_count in range(1, 8):
             if self.__year > TRANS_TO_G_YEAR:
-                date_1 = datetime.date(self.__year, 12, 25) \
-                         - datetime.timedelta(days=day_count)
+                date_1 = datetime.date(self.__year, 12, 25) - datetime.timedelta(days=day_count)
                 date_2 = int(date_1.strftime('%w'))
                 if date_2 == 0:
                     result = date_1.timetuple()
@@ -363,40 +365,31 @@ A tool for determining the date of Easter and the calculation of movable feasts
             else:
                 pismeno = self.dominical_letter_j()
                 year2 = PATTERN_G_MAP[pismeno]
-                date_1 = datetime.date(year2, 12, 25) \
-                    - datetime.timedelta(days=day_count)
+                date_1 = datetime.date(year2, 12, 25) - datetime.timedelta(days=day_count)
                 date_2 = int(date_1.strftime('%w'))
                 date_1 = date_1.replace(year=self.__year)
                 if date_2 == 0:
                     result = date_1.timetuple()
                     return result
 
-    def treti_ned_ad(self):
-        """3. advent Sunday"""
+    def advent_sunday_helper(self, day):
         date_str = time.strftime("%Y-%m-%d", self.ctvrta_ned_ad())
         date = time.strptime(date_str, "%Y-%m-%d")
-        to_tuple = datetime.date(date[0], date[1], date[2]) \
-                   - datetime.timedelta(days=7)
+        to_tuple = datetime.date(date[0], date[1], date[2]) - datetime.timedelta(days=day)
         result = to_tuple.timetuple()
         return result
+
+    def treti_ned_ad(self):
+        """3. advent Sunday"""
+        return self.advent_sunday_helper(7)
 
     def druha_ned_ad(self):
         """2. advent Sunday"""
-        date_str = time.strftime("%Y-%m-%d", self.ctvrta_ned_ad())
-        date = time.strptime(date_str, "%Y-%m-%d")
-        to_tuple = datetime.date(date[0], date[1], date[2]) \
-                   - datetime.timedelta(days=14)
-        result = to_tuple.timetuple()
-        return result
+        return self.advent_sunday_helper(14)
 
     def prvni_ned_ad(self):
         """1. advenresult Sunday"""
-        date_str = time.strftime("%Y-%m-%d", self.ctvrta_ned_ad())
-        date = time.strptime(date_str, "%Y-%m-%d")
-        to_tuple = datetime.date(date[0], date[1], date[2]) \
-                   - datetime.timedelta(days=21)
-        result = to_tuple.timetuple()
-        return result
+        return self.advent_sunday_helper(21)
 
     def nedele_letni(self):
         nedele = []
@@ -404,11 +397,9 @@ A tool for determining the date of Easter and the calculation of movable feasts
         date = time.strptime(date_str, "%Y-%m-%d")
         date_str2 = time.strftime("%Y-%m-%d", self.prvni_ned_ad())
         date2 = time.strptime(str(date_str2), "%Y-%m-%d")
-        date2 = datetime.date(date2[0], date2[1], date2[2]) \
-                + datetime.timedelta(days=0)
+        date2 = datetime.date(date2[0], date2[1], date2[2]) + datetime.timedelta(days=0)
         for day_count in range(1, 40):
-            date_1 = datetime.date(date[0], date[1], date[2]) \
-                     + datetime.timedelta(days=7 * day_count)
+            date_1 = datetime.date(date[0], date[1], date[2]) + datetime.timedelta(days=7 * day_count)
 
             if date_1 >= date2:
                 return nedele

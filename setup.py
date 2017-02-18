@@ -22,8 +22,8 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 3.4',
         'Natural Language :: Czech',
-        ],
-        long_description = """\
+    ],
+    long_description="""\
 Tool for historical chronology - Computus
 -------------------------------------
 
