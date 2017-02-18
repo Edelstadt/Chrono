@@ -1,3 +1,5 @@
+
+[![Build Status](https://travis-ci.org/Edelstadt/List-of-saints-template.svg?branch=master)](https://travis-ci.org/Edelstadt/List-of-saints-template)
 Chronological tools
 =====================
 
