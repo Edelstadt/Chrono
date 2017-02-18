@@ -112,8 +112,9 @@ class EasterTool:
 A tool for determining the date of Easter and the calculation of movable feasts
     """
 
-    def __init__(self, year):
+    def __init__(self, year, transformate_to_gregorian=None):
         self.__year = year
+        self.trans_to_gregorian = TRANS_TO_G_YEAR if not transformate_to_gregorian else transformate_to_gregorian
 
     def solar_circle(self) -> int:
         """
@@ -128,8 +129,7 @@ A tool for determining the date of Easter and the calculation of movable feasts
     def concurrents(self) -> int:
         """concurrents,
         param: year """
-        quarter = (self.__year / 4)
-        quarter = int(quarter)
+        quarter = int(self.__year / 4)
         return (self.__year + quarter + 4) % 7 or 7
 
     def golden_number(self) -> int:
